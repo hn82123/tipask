@@ -1,0 +1,32 @@
+version: "2"
+services:
+  nginx:
+    build: nginx
+    ports:
+      - "80:80"
+    links:
+      - tipask
+    volumes:
+      - ./tipask:/var/www/tipask
+
+  tipask:
+    build: .
+    ports:
+      - "9000:9000"
+    links:
+      - mysql
+    volumes:
+      - ./tipask:/var/www/tipask
+
+  mysql:
+    image: mysql:5.6
+    volumes:
+      - mysql:/var/lib/mysql
+    environment:
+      - MYSQL_DATABASE=tipaskx
+      - MYSQL_USER=tipaskdb
+      - MYSQL_PASSWORD=password1
+      - MYSQL_ROOT_PASSWORD=password1
+
+volumes:
+  mysql:
