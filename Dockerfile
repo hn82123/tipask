@@ -1,4 +1,4 @@
-FROM php:7.0-fpm-alpine
+FROM php:7-apache
 
 # Install
 RUN apk update
