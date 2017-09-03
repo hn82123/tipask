@@ -1,20 +1,26 @@
 FROM php:7-apache
 
 # Install
-RUN apk update
-RUN apk add gcc g++ libpng-dev
-RUN apk add jpeg-dev
-RUN apk add freetype-dev fontconfig
-#RUN apk add git
+RUN sed -i 's/deb.debian.org/debian.ustc.edu.cn/g' /etc/apt/sources.list \
+    && apt-get update && apt-get install -y \
+        gcc g++ \
+        libfreetype6-dev \
+        libjpeg62-turbo-dev \
+        libmcrypt-dev \
+        libpng12-dev 
 
+RUN docker-php-ext-install -j$(nproc) iconv mcrypt \
+  && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
+  && docker-php-ext-install -j$(nproc) gd
 RUN docker-php-ext-install pdo pdo_mysql
-RUN docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/
-RUN docker-php-ext-install gd
 
-#RUN git clone https://github.com/sdfsky/tipask.git
-#RUN mv tipask /var/www/
-ENV ROOT /var/www/tipask
+RUN a2enmod rewrite
 
-#ADD tipask-3.2.1 $ROOT
-#RUN chmod 777 $ROOT/storage -R
-#RUN chmod 777 $ROOT/bootstrap/cache
+ADD apache.conf /etc/apache2/sites-enabled/000-default.conf
+ADD php.ini /usr/local/etc/php/
+
+ADD entrypoint.sh /entrypoint.sh
+
+ENTRYPOINT ["/entrypoint.sh"]
+
+
