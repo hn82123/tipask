@@ -1,0 +1,25 @@
+version: "2"
+services:
+  tipask:
+    image: hn82123/tipask
+    size: m1
+    ports:
+      - "80:80"
+    links:
+      - mysql
+    noauto_volume: true
+    volumes:
+      - tipask:/var/www/tipask
+
+  mysql:
+    image: mysql:5.6
+    size: m2
+    noauto_volume: true
+    volumes:
+      - mysql:/var/lib/mysql
+    environment:
+      - MYSQL_DATABASE=tipaskx
+      - MYSQL_USER=tipaskdb
+      - MYSQL_PASSWORD=password1
+      - MYSQL_RANDOM_ROOT_PASSWORD=yes
+
