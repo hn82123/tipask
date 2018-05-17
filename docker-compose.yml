@@ -6,6 +6,10 @@ services:
       - mysql
     environment:
       - VIRTUAL_HOST=neui.net
+      - DB_HOST=mysql
+      - DB_DATABASE=tipaskx
+      - DB_USER=tipaskdb
+      - DB_PASSWORD=password1
 
   mysql:
     image: mysql:5.6
