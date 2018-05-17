@@ -2,10 +2,10 @@ version: "2"
 services:
   tipask:
     image: xujingguo58/tipask-docker
-    ports:
-      - "80:80"
     links:
       - mysql
+    environment:
+      - VIRTUAL_HOST=neui.net
 
   mysql:
     image: mysql:5.6
@@ -19,3 +19,9 @@ services:
 
 volumes:
   mysql:
+
+networks:
+  default:
+    external:
+      name: nginx-proxy
+
