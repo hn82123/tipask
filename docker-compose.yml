@@ -1,13 +1,11 @@
 version: "2"
 services:
   tipask:
-    build: .
+    image: xujingguo58/tipask-docker
     ports:
       - "80:80"
     links:
       - mysql
-    volumes:
-      - ./tipask:/var/www/tipask
 
   mysql:
     image: mysql:5.6
