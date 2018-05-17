@@ -29,4 +29,4 @@ WORKDIR /var/www/html/tipask
 
 RUN composer install 
 
-RUN touch .env && chmod 777 .env
+RUN touch .env && chown www-data -R .env storage bootstrap/cache
