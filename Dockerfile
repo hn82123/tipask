@@ -1,8 +1,7 @@
 FROM php:7-apache
 
 # Install
-RUN sed -i 's/deb.debian.org/debian.ustc.edu.cn/g' /etc/apt/sources.list \
-    && apt-get update && apt-get install -y \
+RUN   apt-get update && apt-get install -y \
 	git \
         gcc g++ \
         libfreetype6-dev \
