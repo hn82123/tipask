@@ -1,7 +1,7 @@
 version: "2"
 services:
   tipask:
-    image: xujingguo58/tipask-docker
+    image: neuinet/tipask-docker
     links:
       - mysql
     environment:
